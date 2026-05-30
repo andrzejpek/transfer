@@ -40,10 +40,6 @@ public class Account {
         return accountId;
     }
 
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
-    }
-
     public BigDecimal getBalance() {
         return balance;
     }
@@ -56,14 +52,13 @@ public class Account {
     }
 
     public void deposit(BigDecimal amount) {
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Deposit amount must be positive");
+        }
         this.balance = this.balance.add(amount);
     }
 
     public Long getVersion() {
         return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
     }
 }

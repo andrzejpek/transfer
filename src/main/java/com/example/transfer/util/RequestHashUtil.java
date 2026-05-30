@@ -14,7 +14,7 @@ public class RequestHashUtil {
     public static String compute(TransferRequest request) {
         String input = request.getFromAccount() + ":"
                 + request.getToAccount() + ":"
-                + request.getAmount().toPlainString();
+                + request.getAmount().stripTrailingZeros().toPlainString();
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hashBytes = digest.digest(input.getBytes(StandardCharsets.UTF_8));

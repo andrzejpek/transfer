@@ -26,6 +26,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -118,9 +119,8 @@ class TransferServiceTest {
         when(accountRepository.findById("ACC-A")).thenReturn(Optional.of(source));
         when(accountRepository.findById("ACC-B")).thenReturn(Optional.of(dest));
 
-        com.example.transfer.domain.Transfer savedTransfer = new com.example.transfer.domain.Transfer(
-                "ACC-A", "ACC-B", new BigDecimal("100.00"), LocalDateTime.now());
-        savedTransfer.setId(1L);
+        com.example.transfer.domain.Transfer savedTransfer = mock(com.example.transfer.domain.Transfer.class);
+        when(savedTransfer.getId()).thenReturn(1L);
         when(transferRepository.save(any())).thenReturn(savedTransfer);
         when(idempotencyRecordRepository.save(any())).thenReturn(null);
 

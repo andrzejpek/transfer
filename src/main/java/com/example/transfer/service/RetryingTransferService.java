@@ -30,9 +30,6 @@ public class RetryingTransferService {
             } catch (ObjectOptimisticLockingFailureException e) {
                 log.warn("Optimistic locking conflict on attempt {}/{} for idempotency key '{}'",
                         attempt, maxAttempts, idempotencyKey);
-                if (attempt == maxAttempts) {
-                    throw new OptimisticLockingRetryFailedException(maxAttempts);
-                }
             }
         }
         throw new OptimisticLockingRetryFailedException(maxAttempts);

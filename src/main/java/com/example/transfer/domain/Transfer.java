@@ -1,5 +1,7 @@
 package com.example.transfer.domain;
 
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,6 +14,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "transfers")
+@Access(AccessType.FIELD)
 public class Transfer {
 
     @Id
@@ -44,7 +47,19 @@ public class Transfer {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getFromAccount() {
+        return fromAccount;
+    }
+
+    public String getToAccount() {
+        return toAccount;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
     }
 }

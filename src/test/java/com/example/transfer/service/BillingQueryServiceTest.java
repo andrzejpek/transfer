@@ -2,7 +2,7 @@ package com.example.transfer.service;
 
 import com.example.transfer.domain.Transfer;
 import com.example.transfer.dto.BillingResponse;
-import com.example.transfer.dto.TransferDirection;
+import com.example.transfer.domain.TransferDirection;
 import com.example.transfer.dto.TransferItem;
 import com.example.transfer.exception.AccountNotFoundException;
 import com.example.transfer.exception.InvalidTransferException;

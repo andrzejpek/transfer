@@ -62,4 +62,10 @@ public class Transfer {
     public LocalDateTime getDate() {
         return date;
     }
+
+    public TransferDirection getDirectionFor(String accountId) {
+        if (this.toAccount.equals(accountId)) return TransferDirection.INCOMING;
+        if (this.fromAccount.equals(accountId)) return TransferDirection.OUTGOING;
+        throw new IllegalArgumentException("Account not involved in transfer");
+    }
 }

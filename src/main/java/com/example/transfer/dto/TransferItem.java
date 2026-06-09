@@ -1,5 +1,7 @@
 package com.example.transfer.dto;
 
+import com.example.transfer.domain.TransferDirection;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -12,7 +14,7 @@ public class TransferItem {
     private final TransferDirection direction;
     private final LocalDateTime createdAt;
 
-    public TransferItem(Long transferId, String sourceAccountId, String destinationAccountId, 
+    public TransferItem(Long transferId, String sourceAccountId, String destinationAccountId,
                        BigDecimal amount, TransferDirection direction, LocalDateTime createdAt) {
         this.transferId = transferId;
         this.sourceAccountId = sourceAccountId;

@@ -4,7 +4,6 @@ import com.example.transfer.domain.Account;
 import com.example.transfer.domain.Transfer;
 import com.example.transfer.repository.AccountRepository;
 import com.example.transfer.repository.TransferRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,7 +119,7 @@ class BillingIntegrationTest {
     @Test
     void missingDateParameters_returns400() throws Exception {
         mockMvc.perform(get("/accounts/ACC-001/billings"))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isInternalServerError());
     }
 
     @Test

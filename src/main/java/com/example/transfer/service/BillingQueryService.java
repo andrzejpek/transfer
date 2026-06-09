@@ -2,7 +2,7 @@ package com.example.transfer.service;
 
 import com.example.transfer.domain.Transfer;
 import com.example.transfer.dto.BillingResponse;
-import com.example.transfer.dto.TransferDirection;
+import com.example.transfer.domain.TransferDirection;
 import com.example.transfer.dto.TransferItem;
 import com.example.transfer.exception.AccountNotFoundException;
 import com.example.transfer.exception.InvalidTransferException;
@@ -63,30 +63,26 @@ public class BillingQueryService {
     }
 
     private TransferItem mapToTransferItem(Transfer transfer, String accountId) {
-        TransferDirection direction = transfer.getToAccount().equals(accountId) 
-                ? TransferDirection.INCOMING 
-                : TransferDirection.OUTGOING;
-
         return new TransferItem(
                 transfer.getId(),
                 transfer.getFromAccount(),
                 transfer.getToAccount(),
                 transfer.getAmount(),
-                direction,
+                transfer.getDirectionFor(accountId),
                 transfer.getDate()
         );
     }
 
     private BigDecimal calculateTotalIncoming(List<Transfer> transfers, String accountId) {
         return transfers.stream()
-                .filter(transfer -> transfer.getToAccount().equals(accountId))
+                .filter(transfer -> transfer.getDirectionFor(accountId) == TransferDirection.INCOMING)
                 .map(Transfer::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     private BigDecimal calculateTotalOutgoing(List<Transfer> transfers, String accountId) {
         return transfers.stream()
-                .filter(transfer -> transfer.getFromAccount().equals(accountId))
+                .filter(transfer -> transfer.getDirectionFor(accountId) == TransferDirection.OUTGOING)
                 .map(Transfer::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
